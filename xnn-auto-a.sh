@@ -66,7 +66,7 @@ cat > $MAIN_DIR/xnn-index/index.html <<EOF
 <body style="background-color:rgb(56,130,168);">
     <h1>可爱的小男娘</h1>
 EOF
-echo "    <h3>[$(date '+%Y-%m-%d %H:%M:%S')]-由自动化脚本构建</h3>" >> $MAIN_DIR/xnn-index/index.html
+echo "    <h3>[$(date '+%Y-%m-%d %H:%M:%S') UTC]-由自动化脚本构建</h3>" >> $MAIN_DIR/xnn-index/index.html
 echo "    <h3>共 $(ls -1v $MAIN_DIR/xnn-index/xnn-image/ | wc -l) 张照片</h3>" >> $MAIN_DIR/xnn-index/index.html
 cat >> $MAIN_DIR/xnn-index/index.html <<EOF
     <p>可以点击超链接查看下面的照片，或者<a href="./xnn-image-index.txt">查看所有链接</a><br>源自<a href="https://github.com/cute-Dress/Dress">Dress项目</a></p>
