@@ -2,7 +2,10 @@ name: xnn-auto-upload
 
 on:
   schedule:
-    - cron: '0 16 * * *'   # 北京时间每天凌晨 0 点（UTC 16:00）
+    - cron: '0 16 * * *'
+    - cron: '0 22 * * *'
+    - cron: '0 4 * * *'
+    - cron: '0 10 * * *'
   workflow_dispatch:        # 允许你手动点击“运行”按钮
 jobs:
   build-and-deploy:   # 1. 任务ID
