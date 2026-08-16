@@ -20,15 +20,10 @@ MAIN_DIR="${1:-$GITHUB_WORKSPACE}"
 
 trap 'error_handler $LINENO' ERR
 
-mkdir -p $MAIN_DIR/Dress
-cd $MAIN_DIR/Dress
-if git rev-parse --git-dir >/dev/null 2>&1; then
-    git pull
-else
-    cd $MAIN_DIR
-    rm -rf $MAIN_DIR/Dress
-    git clone https://github.com/cute-Dress/Dress.git
-fi
+cd $MAIN_DIR
+rm -rf $MAIN_DIR/Dress
+git clone https://github.com/cute-Dress/Dress.git
+echo $( ls -la $MAIN_DIR/Dress )
 rm -rf "$MAIN_DIR/xnn-index/"
 # 创建目标目录
 mkdir -p "$MAIN_DIR/xnn-index/xnn-image"
