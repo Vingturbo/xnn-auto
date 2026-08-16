@@ -22,8 +22,7 @@ trap 'error_handler $LINENO' ERR
 
 cd $MAIN_DIR
 rm -rf $MAIN_DIR/Dress
-git clone https://github.com/cute-Dress/Dress.git
-echo $( ls -la $MAIN_DIR/Dress )
+git clone --depth 1 --single-branch https://github.com/cute-Dress/Dress.git
 rm -rf "$MAIN_DIR/xnn-index/"
 # 创建目标目录
 mkdir -p "$MAIN_DIR/xnn-index/xnn-image"
