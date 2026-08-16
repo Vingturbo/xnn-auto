@@ -1,0 +1,20 @@
+name: xnn-auto-upload
+
+on:
+  schedule:
+    - cron: '0 16 * * *'   # 北京时间每天凌晨 0 点（UTC 16:00）
+  workflow_dispatch:        # 允许你手动点击“运行”按钮
+jobs:
+  build-and-deploy:   # 1. 任务ID
+    runs-on: ubuntu-latest   # 2. 运行环境
+    steps:   # 3. 执行步骤列表
+      - name: 拉取代码
+        uses: actions/checkout@v4
+      - name: 运行脚本
+        run: bash xnn-auto-a.sh
+      - name: 部署到 Cloudflare Pages
+        uses: cloudflare/wrangler-action@v4
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy ${{ github.workspace }}/xnn-index --project-name=xnn-image --branch=main
