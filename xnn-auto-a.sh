@@ -59,6 +59,7 @@ cat > $MAIN_DIR/xnn-index/index.html <<EOF
 </head>
 <body style="background-color:rgb(56,130,168);">
     <h1>可爱的小男娘</h1>
+    <p>本项目使用 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议 (CC BY-NC-SA 4.0) 许可证</p>
 EOF
 echo "    <h3>[$(date '+%Y-%m-%d %H:%M:%S') UTC]-由GitHub Actions自动构建</h3>" >> $MAIN_DIR/xnn-index/index.html
 echo "    <h3>共 $(ls -1v $MAIN_DIR/xnn-index/xnn-image/ | wc -l) 张照片</h3>" >> $MAIN_DIR/xnn-index/index.html
