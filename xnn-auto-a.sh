@@ -33,7 +33,7 @@ find "$MAIN_DIR/Dress" -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*
     # 提取扩展名（保留最后一个点后的部分）
     ext="${file##*.}"
     # 复制并重命名
-    cp "$file" "$MAIN_DIR/xnn-index/xnn-image/$count-#(sha512sum $file | cut -d' ' -f1).$ext"
+    cp "$file" "$MAIN_DIR/xnn-index/xnn-image/$count-$(sha512sum "$file" | cut -d' ' -f1).$ext"
     echo "[$(date '+%Y-%m-%d %H:%M:%S')]-$count : copy $file to $MAIN_DIR/xnn-index/xnn-image/$count.$ext"
     count=$((count + 1))
 done
