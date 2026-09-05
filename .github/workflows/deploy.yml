@@ -10,6 +10,12 @@ jobs:
     steps:   # 3. 执行步骤列表
       - name: 拉取代码
         uses: actions/checkout@v4
+      - name: 拉取Dress仓库
+        uses: actions/checkout@v4
+        with:
+          repository: cute-Dress/Dress
+          path: Dress
+          submodules: recursive
       - name: 运行脚本
         run: bash xnn-auto-a.sh
       - name: 部署到 Cloudflare Pages
