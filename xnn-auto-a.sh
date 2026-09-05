@@ -41,7 +41,7 @@ echo "[$(date '+%Y-%m-%d %H:%M:%S')]-image copy done"
 echo "[$(date '+%Y-%m-%d %H:%M:%S')]-start create web file"
 ls -1v $MAIN_DIR/xnn-index/xnn-image/ > $MAIN_DIR/xnn-index/index.txt
 cd $MAIN_DIR/xnn-index/xnn-image/
-sha512sum $(ls) > $MAIN_DIR/xnn-index/sha512hash.txt
+sha512sum $(ls -1v) > $MAIN_DIR/xnn-index/sha512hash.txt
 cd $MAIN_DIR
 sed 's/^/.\/xnn-image\//' $MAIN_DIR/xnn-index/index.txt > $MAIN_DIR/xnn-index/xnn-image-index.txt
 # 使用 awk 按行合并
