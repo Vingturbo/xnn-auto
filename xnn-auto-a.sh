@@ -33,13 +33,16 @@ find "$MAIN_DIR/Dress" -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*
     # 提取扩展名（保留最后一个点后的部分）
     ext="${file##*.}"
     # 复制并重命名
-    cp "$file" "$MAIN_DIR/xnn-index/xnn-image/$count-$(sha512sum "$file" | cut -d' ' -f1).$ext"
+    cp "$file" "$MAIN_DIR/xnn-index/xnn-image/$count.$ext"
     echo "[$(date '+%Y-%m-%d %H:%M:%S')]-$count : copy $file to $MAIN_DIR/xnn-index/xnn-image/$count.$ext"
     count=$((count + 1))
 done
 echo "[$(date '+%Y-%m-%d %H:%M:%S')]-image copy done"
 echo "[$(date '+%Y-%m-%d %H:%M:%S')]-start create web file"
 ls -1v $MAIN_DIR/xnn-index/xnn-image/ > $MAIN_DIR/xnn-index/index.txt
+cd $MAIN_DIR/xnn-index/xnn-image/
+sha512sum $(ls) > $MAIN_DIR/xnn-index/sha512hash.txt
+cd $MAIN_DIR
 sed 's/^/.\/xnn-image\//' $MAIN_DIR/xnn-index/index.txt > $MAIN_DIR/xnn-index/xnn-image-index.txt
 # 使用 awk 按行合并
 awk 'NR==FNR {url[NR]=$0; next} {print "        <li><p><a href=\"" url[FNR] "\">" $0 "</a></p></li>"}' $MAIN_DIR/xnn-index/xnn-image-index.txt $MAIN_DIR/xnn-index/index.txt > $MAIN_DIR/xnn-index/ul.txt
@@ -64,7 +67,7 @@ EOF
 echo "    <h3>[$(date '+%Y-%m-%d %H:%M:%S') UTC]-由GitHub Actions自动构建</h3>" >> $MAIN_DIR/xnn-index/index.html
 echo "    <h3>共 $(ls -1v $MAIN_DIR/xnn-index/xnn-image/ | wc -l) 张照片</h3>" >> $MAIN_DIR/xnn-index/index.html
 cat >> $MAIN_DIR/xnn-index/index.html <<EOF
-    <p>可以点击超链接查看下面的照片，或者<a href="./xnn-image-index.txt">查看所有链接</a><br>源自<a href="https://github.com/cute-Dress/Dress">Dress项目</a></p>
+    <p>可以点击超链接查看下面的照片，或者<a href="./xnn-image-index.txt">查看所有链接</a>与<a href="sha512hash.txt">SHA512哈希表</a><br>源自<a href="https://github.com/cute-Dress/Dress">Dress项目</a></p>
     <ul style="line-height: 2px;">
 EOF
 
