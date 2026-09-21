@@ -64,7 +64,7 @@ EOF
 echo "    <h3>[$(date '+%Y-%m-%d %H:%M:%S') UTC]-由GitHub Actions自动构建</h3>" >> $MAIN_DIR/xnn-index/index.html
 echo "    <h3>共 $(ls -1v $MAIN_DIR/xnn-index/xnn-image/ | wc -l) 张照片</h3>" >> $MAIN_DIR/xnn-index/index.html
 cat >> $MAIN_DIR/xnn-index/index.html <<EOF
-    <p>可以点击超链接查看下面的照片，或者<a href="./xnn-image-index.txt">查看所有链接</a>与<a href="sha512hash.txt">SHA512哈希表</a><br>源自<a href="https://github.com/cute-Dress/Dress">Dress项目</a></p>
+    <p>可以点击超链接查看下面的照片，或者<a href="./xnn-image-index.txt">查看所有链接</a>;<a href="sha512hash.txt">SHA512哈希表</a>;<a href="https://github.com/Vingturbo/xnn-auto/releases/tag/archive">下载所有照片</a><br>源自<a href="https://github.com/cute-Dress/Dress">Dress项目</a></p>
     <ul style="line-height: 2px;">
 EOF
 
@@ -99,7 +99,7 @@ cd $MAIN_DIR/xnn-index
 zip -r -s 1900m $MAIN_DIR/dist/xnn-archive.zip xnn-image/
 cd $MAIN_DIR
 gh release delete archive --yes --cleanup-tag || true
-gh release create archive --title "Archive" --notes "[$(date '+%Y-%m-%d %H:%M:%S')]-下载全部分卷到同一文件夹，右键点击 xnn-archive.z01 解压。"
+gh release create archive --title "Archive" --notes "[$(date '+%Y-%m-%d %H:%M:%S')]-下载全部分卷到同一文件夹，右键点击 xnn-archive.z01 或 xnn-archive.zip 解压。"
 gh release upload archive $MAIN_DIR/dist/*
 echo "[$(date '+%Y-%m-%d %H:%M:%S')]-archive upload releases done"
 echo "[$(date '+%Y-%m-%d %H:%M:%S')]-bash done"
