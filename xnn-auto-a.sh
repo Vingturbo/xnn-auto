@@ -64,7 +64,7 @@ EOF
 echo "    <h3>[$(date '+%Y-%m-%d %H:%M:%S') UTC]-由GitHub Actions自动构建</h3>" >> $MAIN_DIR/xnn-index/index.html
 echo "    <h3>共 $(ls -1v $MAIN_DIR/xnn-index/xnn-image/ | wc -l) 张照片</h3>" >> $MAIN_DIR/xnn-index/index.html
 cat >> $MAIN_DIR/xnn-index/index.html <<EOF
-    <p>可以点击超链接查看下面的照片，或者<a href="./xnn-image-index.txt">查看所有链接</a>;<a href="sha512hash.txt">SHA512哈希表</a>;<a href="https://github.com/Vingturbo/xnn-auto/releases/tag/archive">下载所有照片</a><br>源自<a href="https://github.com/cute-Dress/Dress">Dress项目</a></p>
+    <p>可以点击超链接查看下面的照片，或者<a href="./xnn-image-index.txt">查看所有链接</a>;<a href="sha512hash.txt">SHA512哈希表</a>;<a href="https://github.com/Vingturbo/xnn-auto/releases/tag/archive">下载所有照片</a>;<a href="./hash.html">查看哈希表索引页面</a><br>源自<a href="https://github.com/cute-Dress/Dress">Dress项目</a></p>
     <ul style="line-height: 2px;">
 EOF
 
@@ -76,6 +76,54 @@ cat >> $MAIN_DIR/xnn-index/index.html <<EOF
 </html>
 EOF
 echo "[$(date '+%Y-%m-%d %H:%M:%S')]-create file done"
+echo "[$(date '+%Y-%m-%d %H:%M:%S')]-start create HASH file"
+
+mkdir -p $MAIN_DIR/xnn-index/hash/image/
+
+cd $MAIN_DIR/xnn-index/xnn-image/
+for f in *; do
+    [ -f "$f" ] || continue
+    ext="${f##*.}"
+    hash=$(sha512sum "$f" | awk '{print $1}')
+    cp "$f" "$MAIN_DIR/xnn-index/hash/image/$hash.$ext"
+    echo "[$(date '+%Y-%m-%d %H:%M:%S')]-hash $hash : copy $MAIN_DIR/xnn-index/xnn-image/$f to $MAIN_DIR/xnn-index/hash/image/$hash.$ext"
+done
+
+ls -1v $MAIN_DIR/xnn-index/hash/image/ > $MAIN_DIR/xnn-index/hash-index.txt
+sed 's/^/.\/hash\/image\//' $MAIN_DIR/xnn-index/hash-index.txt > $MAIN_DIR/xnn-index/hash-url-index.txt
+awk 'NR==FNR {url[NR]=$0; next} {print "        <li><p><a href=\"" url[FNR] "\">" $0 "</a></p></li>"}' $MAIN_DIR/xnn-index/hash-url-index.txt $MAIN_DIR/xnn-index/hash-index.txt > $MAIN_DIR/xnn-index/hash-ul.txt
+
+cat > $MAIN_DIR/xnn-index/hash.html <<EOF
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="favicon.png">
+<title>可爱的小男娘哈希表索引</title>
+</head>
+<body style="background-color:rgb(56,130,168);">
+    <h1>可爱的小男娘哈希表索引</h1>
+    <p>本项目使用 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议 (CC BY-NC-SA 4.0) 许可证</p>
+EOF
+echo "    <h3>[$(date '+%Y-%m-%d %H:%M:%S') UTC]-由GitHub Actions自动构建</h3>" >> $MAIN_DIR/xnn-index/hash.html
+echo "    <h3>共 $(ls -1v $MAIN_DIR/xnn-index/hash/image/ | wc -l) 张不同照片</h3>" >> $MAIN_DIR/xnn-index/hash.html
+cat >> $MAIN_DIR/xnn-index/hash.html <<EOF
+    <p>可以点击超链接查看下面的照片，或者<a href="./hash-url-index.txt">查看所有链接</a>;<a href="https://github.com/Vingturbo/xnn-auto/releases/tag/archive">下载所有照片</a><br>源自<a href="https://github.com/cute-Dress/Dress">Dress项目</a></p>
+    <ul style="line-height: 2px;">
+EOF
+
+cat $MAIN_DIR/xnn-index/hash-ul.txt >> $MAIN_DIR/xnn-index/hash.html
+
+cat >> $MAIN_DIR/xnn-index/hash.html <<EOF
+    </ul>
+</body>
+</html>
+EOF
+
+echo "[$(date '+%Y-%m-%d %H:%M:%S')]-create HASH hash file done"
 echo "[$(date '+%Y-%m-%d %H:%M:%S')]-start create favicon"
 cp $MAIN_DIR/xnn-index/index.html $MAIN_DIR/xnn-index/xnn-image-index.html
 cat > $MAIN_DIR/xnn-index/favicon.hex <<'EOF'
@@ -87,9 +135,11 @@ echo "[$(date '+%Y-%m-%d %H:%M:%S')]-favicon create done"
 
 echo "[$(date '+%Y-%m-%d %H:%M:%S')]-start delete build file"
 #垃圾文件清理
-rm -rf $MAIN_DIR/xnn-index/index.txt
-rm -rf $MAIN_DIR/xnn-index/ul.txt
-rm -f $MAIN_DIR/xnn-index/favicon.hex
+rm $MAIN_DIR/xnn-index/index.txt
+rm $MAIN_DIR/xnn-index/ul.txt
+rm $MAIN_DIR/xnn-index/favicon.hex
+rm $MAIN_DIR/xnn-index/hash-index.txt
+rm $MAIN_DIR/xnn-index/hash-ul.txt
 
 echo "[$(date '+%Y-%m-%d %H:%M:%S')]-delete build file done"
 
