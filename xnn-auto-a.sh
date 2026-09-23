@@ -56,6 +56,11 @@ cat > $MAIN_DIR/xnn-index/index.html <<EOF
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" href="favicon.png">
 <title>可爱的小男娘</title>
+<style>
+  li > p {
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  }
+</style>
 </head>
 <body style="background-color:rgb(56,130,168);">
     <h1>可爱的小男娘</h1>
@@ -103,6 +108,11 @@ cat > $MAIN_DIR/xnn-index/hash.html <<EOF
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" href="favicon.png">
 <title>可爱的小男娘哈希表索引</title>
+<style>
+  li > p {
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  }
+</style>
 </head>
 <body style="background-color:rgb(56,130,168);">
     <h1>可爱的小男娘哈希表索引</h1>
