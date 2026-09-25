@@ -155,11 +155,17 @@ echo "[$(date '+%Y-%m-%d %H:%M:%S')]-delete build file done"
 
 echo "[$(date '+%Y-%m-%d %H:%M:%S')]-start archive upload releases"
 mkdir -p $MAIN_DIR/dist
+mkdir -p $MAIN_DIR/hash-dist
 cd $MAIN_DIR/xnn-index
 zip -r -s 1900m $MAIN_DIR/dist/xnn-archive.zip xnn-image/
+cd $MAIN_DIR/xnn-index/hash
+zip -r -s 1900m $MAIN_DIR/hash-dist/xnn-hash-archive.zip image/
 cd $MAIN_DIR
 gh release delete archive --yes --cleanup-tag || true
 gh release create archive --title "Archive" --notes "[$(date '+%Y-%m-%d %H:%M:%S')]-下载全部分卷到同一文件夹，右键点击 xnn-archive.z01 或 xnn-archive.zip 解压。"
 gh release upload archive $MAIN_DIR/dist/*
+gh release delete hash-archive --yes --cleanup-tag || true
+gh release create hash-archive --title "HASH-archive" --notes "[$(date '+%Y-%m-%d %H:%M:%S')]-下载全部分卷到同一文件夹，右键点击 xnn-hash-archive.z01 或 xnn-hash-archive.zip 解压。"
+gh release upload hash-archive $MAIN_DIR/hash-dist/*
 echo "[$(date '+%Y-%m-%d %H:%M:%S')]-archive upload releases done"
 echo "[$(date '+%Y-%m-%d %H:%M:%S')]-bash done"
