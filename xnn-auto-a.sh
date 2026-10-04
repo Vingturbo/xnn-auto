@@ -121,7 +121,7 @@ EOF
 echo "    <h3>[$(date '+%Y-%m-%d %H:%M:%S') UTC]-由GitHub Actions自动构建</h3>" >> $MAIN_DIR/xnn-index/hash.html
 echo "    <h3>共 $(ls -1v $MAIN_DIR/xnn-index/hash/image/ | wc -l) 张不同照片</h3>" >> $MAIN_DIR/xnn-index/hash.html
 cat >> $MAIN_DIR/xnn-index/hash.html <<EOF
-    <p>可以点击超链接查看下面的照片，或者<a href="./hash-url-index.txt">查看所有链接</a>;<a href="https://github.com/Vingturbo/xnn-auto/releases/tag/archive">下载所有照片</a><br>源自<a href="https://github.com/cute-Dress/Dress">Dress项目</a></p>
+    <p>可以点击超链接查看下面的照片，或者<a href="./hash-url-index.txt">查看所有链接</a>;<a href="https://github.com/Vingturbo/xnn-auto/releases/tag/hash-archive">下载所有照片</a><br>源自<a href="https://github.com/cute-Dress/Dress">Dress项目</a></p>
     <ul style="line-height: 2px;">
 EOF
 
